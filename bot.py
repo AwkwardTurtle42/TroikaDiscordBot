@@ -8,8 +8,8 @@ from dotenv import load_dotenv
 # General dice rolling function
 # Returns first die, second die, total of both dice
 def roll_dice():
-    die1 = random.randint(1, 7)
-    die2 = random.randint(1, 7)
+    die1 = random.randint(1, 6)
+    die2 = random.randint(1, 6)
     return die1, die2, die1 + die2
 
 
@@ -188,4 +188,5 @@ async def log(ctx, *entry):
 # 	total+=num
 # 	await ctx.send('{} ({},{}) '.format(total,die1,die2) + result)
 
-bot.run(token)
+if __name__ == "__main__":
+    bot.run(token)
