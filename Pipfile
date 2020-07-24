@@ -5,12 +5,12 @@ verify_ssl = true
 
 [dev-packages]
 pytest = "*"
-black = "*"
+mock="*"
 
 [packages]
-discord = "*"
-dotenv = "*"
 python-dotenv = "*"
+flake8 = "*"
+discord-py = "*"
 
 [requires]
 python_version = "3.6"
