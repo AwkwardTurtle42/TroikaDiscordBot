@@ -5,13 +5,6 @@ import random
 from discord.ext import commands
 from dotenv import load_dotenv
 
-# General dice rolling function
-# Returns first die, second die, total of both dice
-def roll_dice():
-    die1 = random.randint(1, 6)
-    die2 = random.randint(1, 6)
-    return die1, die2, die1 + die2
-
 
 # Stuff to set up the discord bot
 load_dotenv()
