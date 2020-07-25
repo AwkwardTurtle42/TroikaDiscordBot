@@ -1,6 +1,11 @@
 from troika_discord.utils import *
 import mock
 
+def test_roll_d6():
+    for _ in range(100):
+        r = roll_d6()
+        assert r >= 1 and r <= 6
+
 def test_roll_2d6():
     for _ in range(100):
         r1, r2, r3 = roll_2d6()
@@ -12,7 +17,6 @@ def test_roll_d66():
     for _ in range(100):
         r = roll_d66()
         assert r >= 11 and r <= 66
-
 
 def test_oops_hit():
     for r1 in range(1, 6):
