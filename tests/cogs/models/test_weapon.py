@@ -1,18 +1,6 @@
 import pytest
-from troika_discord.weapon import *
-import mock
-
-
-def test_normalize_weapon_name():
-    '''Test normalizing the weapon name'''
-    assert normalize_weapon_name("LonGswORD") == "longsword"
-    assert normalize_weapon_name("great  Beast") == "greatbeast"
-
-
-def test_normalize_armor_name():
-    '''Test normalizing the armor name'''
-    assert normalize_armor_name("Heavy ArMor") == "heavy"
-    assert normalize_armor_name("Unarmored") == "unarmored"
+from mock import patch, Mock
+from cogs.models.weapon import Weapon
 
 
 def test_init_exception():
@@ -41,7 +29,8 @@ def test_init_set_optional_values():
 
 def test_basic_damage_roll():
     '''A basic test of damage rolls'''
-    with mock.patch('troika_discord.util.roll_d6', return_value=4):
+    #with mock.patch('cogs.utils.dice.roll_d6', return_value=4):
+    with patch.object(Weapon, 'roll_d6', return_value=4):
         w = Weapon(range(7))
         r = w.roll_damage()
         assert r == 4
@@ -49,7 +38,7 @@ def test_basic_damage_roll():
 
 def test_basic_armor_offset_roll():
     '''Armor offset should reduce damage roll to a minimum of 1'''
-    with mock.patch('troika_discord.util.roll_d6', return_value=2):
+    with patch.object(Weapon, 'roll_d6', return_value=2):
         w = Weapon(range(7))
         r = w.roll_damage(armor_offset=2)
         assert r == 1
@@ -57,7 +46,7 @@ def test_basic_armor_offset_roll():
 
 def test_ignore_armor_offset_roll():
     '''Some weapons ignore one point of the armor offset'''
-    with mock.patch('troika_discord.util.roll_d6', return_value=3):
+    with patch.object(Weapon, 'roll_d6', return_value=3):
         w = Weapon(range(7), ignore_armor=True)
         r = w.roll_damage(armor_offset=2)
         assert r == 2 # Ignores one point of armor offset
@@ -65,7 +54,7 @@ def test_ignore_armor_offset_roll():
 
 def test_armor_offset_unarmored_roll():
     '''Ignoring armor should have no effect on unarmored foes'''
-    with mock.patch('troika_discord.util.roll_d6', return_value=2):
+    with patch.object(Weapon, 'roll_d6', return_value=2):
         w = Weapon(range(7), ignore_armor=True)
         r = w.roll_damage()
         assert r == 2
@@ -73,7 +62,7 @@ def test_armor_offset_unarmored_roll():
 
 def test_attack_damage_mod_roll():
     '''Sometimes there are bonuses on damage rolls'''
-    with mock.patch('troika_discord.util.roll_d6', return_value=2):
+    with patch.object(Weapon, 'roll_d6', return_value=2):
         w = Weapon(range(7))
         r = w.roll_damage(damage_bonus=2)
         assert r == 4
@@ -95,16 +84,3 @@ def test_weapon_lookup_damage_ceiling():
     damage = range(7)
     w = Weapon(damage)
     assert w.lookup_damage(9) == damage[6]
-
-
-def test_weapons_add_weapon():
-    w = Weapons()
-    w.add_weapon(Weapon(range(7), name="Angry Squirrel"))
-    assert len(w.weapons) == 1
-    assert w.weapons['angrysquirrel']
-
-
-def test_weapons_lookup_weapon_found():
-    w = all_weapons.lookup_weapon('KnIfE')
-    assert w is not None
-    assert w.name == 'Knife'

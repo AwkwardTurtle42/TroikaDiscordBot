@@ -1,5 +1,4 @@
-from troika_discord.util import *
-import mock
+from cogs.utils.dice import roll_d6, roll_2d6, roll_d66
 
 def test_roll_d6():
     for _ in range(100):
@@ -18,11 +17,3 @@ def test_roll_d66():
         r = roll_d66()
         assert r >= 11 and r <= 66
 
-def test_oops_hit():
-    for r1 in range(1, 6):
-        for r2 in range(1, 6):
-            total = r1*10 + r2
-            with mock.patch('troika_discord.util.roll_d66', return_value=total):
-                roll, msg = roll_oops()
-                assert roll == total
-                assert msg == OOPS_TABLE[total]
