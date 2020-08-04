@@ -1,7 +1,11 @@
 {
     "_meta": {
         "hash": {
+<<<<<<< HEAD
             "sha256": "88ac7d12681c9dbca71a5b81407bcac60827befc0e3555527c813ca81b972c2b"
+=======
+            "sha256": "2d3248dd4a96c0e84b8c0978b9fc2a70564013964296dd8fc3a730879cc86d22"
+>>>>>>> 43dcb33... Things work, but I need to figure out how to test
         },
         "pipfile-spec": 6,
         "requires": {
@@ -47,12 +51,27 @@
             ],
             "version": "==19.3.0"
         },
+        "cachetools": {
+            "hashes": [
+                "sha256:513d4ff98dd27f85743a8dc0e92f55ddb1b49e060c2d5961512855cda2c01a98",
+                "sha256:bbaa39c3dede00175df2dc2b03d0cf18dd2d32a7de7beb68072d13043c9edb20"
+            ],
+            "version": "==4.1.1"
+        },
         "chardet": {
             "hashes": [
                 "sha256:84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae",
                 "sha256:fc323ffcaeaed0e0a02bf4d117757b98aed530d9ed4531e3e15460124c106691"
             ],
             "version": "==3.0.4"
+        },
+        "d20": {
+            "hashes": [
+                "sha256:3832dd6bf217114f2e367ec14a238dcf71cc23a020ba5320987d59f0e667a89f",
+                "sha256:7cd9bc777ac557a9c24fe75099f5ee55987ce91cfd1248763ee2a7ccf3987317"
+            ],
+            "index": "pypi",
+            "version": "==1.0.4"
         },
         "discord-py": {
             "hashes": [
@@ -90,6 +109,12 @@
             ],
             "markers": "python_version < '3.8'",
             "version": "==1.7.0"
+        },
+        "lark-parser": {
+            "hashes": [
+                "sha256:9e7589365d6b6de1cca40b0eaec31104a3fb96a37a11a9dfd5098e95b50aa6cd"
+            ],
+            "version": "==0.9.0"
         },
         "mccabe": {
             "hashes": [
@@ -148,7 +173,7 @@
                 "sha256:79ee589a3caca649a9bfd2a8de4709837400dfa00b6cc81962a1e6a1815969ae",
                 "sha256:f8d2bd89d25bc39dabe7d23df520442fa1d8969b82544370e03d88b5a591c392"
             ],
-            "markers": "python_version < '3.7'",
+            "markers": "python_version < '3.8'",
             "version": "==3.7.4.2"
         },
         "yarl": {
@@ -301,6 +326,21 @@
             ],
             "index": "pypi",
             "version": "==2.10.1"
+        "pytest-asyncio": {
+            "hashes": [
+                "sha256:2eae1e34f6c68fc0a9dc12d4bea190483843ff4708d24277c41568d6b6044f1d",
+                "sha256:9882c0c6b24429449f5f969a5158b528f39bde47dc32e85b9f0403965017e700"
+            ],
+            "index": "pypi",
+            "version": "==0.14.0"
+        },
+        "pytest-mock": {
+            "hashes": [
+                "sha256:5564c7cd2569b603f8451ec77928083054d8896046830ca763ed68f4112d17c7",
+                "sha256:7122d55505d5ed5a6f3df940ad174b3f606ecae5e9bc379569cdcbd4cd9d2b83"
+            ],
+            "index": "pypi",
+            "version": "==3.2.0"
         },
         "six": {
             "hashes": [

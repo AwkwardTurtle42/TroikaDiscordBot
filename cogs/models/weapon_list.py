@@ -1,3 +1,5 @@
+import re
+
 from cogs.utils.dice import roll_d6
 from cogs.models.weapon import Weapon
 
@@ -70,3 +72,27 @@ STANDARD_WEAPONS = [
 ALL_WEAPONS = WeaponList()
 for w in STANDARD_WEAPONS:
     ALL_WEAPONS.add_weapon(w)
+
+ARMOR_OFFSETS= {
+    "unarmored": 0,
+    "light": 1,
+    "lightly": 1,
+    "modest": 2,
+    "modestly": 2,
+    "medium": 2,
+    "heavy": 3,
+    "heavily": 3
+}
+
+ARMOR_REGEXP_STRING = f"({'|'.join(ARMOR_OFFSETS.keys())})( armor|armour|armored|armoured)?"
+
+def lookup_armor_offset(armor):
+   '''Returns an int, None for the armor offset and a 0, err if it has issues looking up the armor'''
+   if armor.isnumeric():
+       return int(armor)
+   else:
+       try:
+           offset = ARMOR_OFFSETS[normalize_armor_name(armor)]
+           return offset, None
+       except KeyError:
+           return 0, f"Unable to look up offset for armor: '{armor}' Check the spelling or provide as an integer"

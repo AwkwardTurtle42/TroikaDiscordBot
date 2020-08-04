@@ -1,4 +1,4 @@
-from cogs.utils.dice import roll_d6
+from cogs.utils import dice
 
 class Weapon:
     '''Defining the weapons as objects might be overkill, but I'd like to
@@ -17,9 +17,9 @@ class Weapon:
         self.two_handed = two_handed
         self.ignore_armor = ignore_armor
 
-    def roll_d6():
+    def roll_d6(self):
         '''Doing this because Python mocking is dumb'''
-        return roll_d6()
+        return dice.roll_d6()
     
     def roll_damage(self, armor_offset=0, damage_bonus=0):
         '''Computes a damage roll, adjusting various modifiers'''
