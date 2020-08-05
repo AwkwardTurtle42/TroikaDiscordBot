@@ -1,7 +1,16 @@
-# TroikaDiscordBot
-Discord bot written in python to handle the Troika! initiative system.
+# Troika Discord Bot
+This is a discord bot developed to aid in running the Tabletop RPG Troika! Numinous Edition.
+Originally developed by AwkwardTurtle42
 
-Used these instructions to design and setup the bot: https://realpython.com/how-to-make-a-discord-bot-python/ 
-Follow the same initial setup instructions there to use the bot in your own discord server. Requires you to be able to run python scripts on your computer to run properly.
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-Use the !help command to see the available commands from the bot itself.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
