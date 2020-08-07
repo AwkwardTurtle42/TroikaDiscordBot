@@ -4,7 +4,8 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import NoPrivateMessage, ArgumentParsingError, BadArgument
 
-from cogs.models.weapon_list import ALL_WEAPONS, lookup_armor_offset, ARMOR_REGEXP_STRING
+from cogs.models.weapon import ARMOR_REGEXP_STRING
+from cogs.models.weapon_list import ALL_WEAPONS
 
 class WeaponCog(commands.Cog):
     def __init__(self, bot):
@@ -29,6 +30,7 @@ class WeaponCog(commands.Cog):
         print("ARGS: ", arg_str)
         # DEFINE REGEXPS
         DAMAGE_REGEXP_TWO_INTS = re.compile("(.+) ([+-]?[0-9]+) ([+-]?[0-9]+)")
+        DAMAGE_REGEXP_BONUS_ONLY = re.compile("(.+) ([+-]?[0-9]+)")
         DAMAGE_REGEXP_ARMOR_BONUS = re.compile(f"(.+) {ARMOR_REGEXP_STRING} ([+-]?[0-9]+)", flags=re.IGNORECASE)
         DAMAGE_REGEXP_ARMOR = re.compile(f"(.+) ({ARMOR_REGEXP_STRING})", flags=re.IGNORECASE)
         DAMAGE_REGEXP_NONE = re.compile("(.+)")
@@ -54,7 +56,7 @@ class WeaponCog(commands.Cog):
             regexp_matched = True
             weapon_name = match.group(1)
             armor = match.group(2)
-            bonus = int(match.group(4))
+            bonus = int(match.group(3))
 
         match = DAMAGE_REGEXP_ARMOR.match(arg_str)
         if not regexp_matched and match:
@@ -64,12 +66,19 @@ class WeaponCog(commands.Cog):
             armor = match.group(2)
             bonus = 0
 
+        match = DAMAGE_REGEXP_BONUS_ONLY.match(arg_str)
+        if not regexp_matched and match:
+            regexp_matched = True
+            weapon_name = match.group(1)
+            armor = "No"
+            bonus = int(match.group(2))
+
         match = DAMAGE_REGEXP_NONE.match(arg_str)
         if not regexp_matched and match:
             print("NONE")
             regexp_matched = True
             weapon_name = match.group(1)
-            armor = "Unarmored"
+            armor = "No"
             bonus = 0
 
         if not regexp_matched:
@@ -79,27 +88,10 @@ class WeaponCog(commands.Cog):
         if weapon is None:
             raise BadArgument(f"Unable to find a weapon definition for `{weapon_name}`. Check your spelling?")
 
-        if armor_offset is None:
-            armor_offset, err = lookup_armor_offset(armor)
-            if err is not None:
-                await ctx.send(err)
+        damage_roll = weapon.roll_damage(armor, bonus)
+        damage_amount = weapon.lookup_damage(damage_roll.total)
 
-        damage_roll = weapon.roll_damage(armor_offset, bonus)
-        damage_amount = weapon.lookup_damage(damage_roll)
-
-        if weapon.ignore_armor:
-            armor_info_string = " (ignores armour)"
-        else:
-            armor_info_string = ""
-
-        if bonus > 0:
-            bonus_string = f"+{bonus}"
-        elif bonus < 0:
-            bonus_string = "{bonus}"
-        else:
-            bonus_string = ""
-
-        await ctx.send(f"ROLL {damage_roll}{bonus_string} for {weapon_name.upper()} against {armor} armor{armor_info_string} DAMAGE: {damage_amount}")
+        await ctx.send(f"ROLL {damage_roll.result} DAMAGE=`{damage_amount}`")
 
 
 def setup(bot):

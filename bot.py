@@ -15,7 +15,7 @@ load_dotenv()
 discord_token = os.getenv("DISCORD_TOKEN")
 
 COGS = (
-    "cogs.initiative_cog", "cogs.weapon_cog"
+    "cogs.initiative_cog", "cogs.weapon_cog", "cogs.oops_cog"
 )
 
 class TroikaBot(commands.Bot):

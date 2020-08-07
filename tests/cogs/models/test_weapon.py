@@ -33,23 +33,23 @@ def test_basic_damage_roll():
     with patch.object(Weapon, 'roll_d6', return_value=4):
         w = Weapon(range(7))
         r = w.roll_damage()
-        assert r == 4
+        assert r.total == 4
 
 
 def test_basic_armor_offset_roll():
     '''Armor offset should reduce damage roll to a minimum of 1'''
     with patch.object(Weapon, 'roll_d6', return_value=2):
         w = Weapon(range(7))
-        r = w.roll_damage(armor_offset=2)
-        assert r == 1
+        r = w.roll_damage(armor="Medium")
+        assert r.total == 1
 
 
 def test_ignore_armor_offset_roll():
     '''Some weapons ignore one point of the armor offset'''
     with patch.object(Weapon, 'roll_d6', return_value=3):
         w = Weapon(range(7), ignore_armor=True)
-        r = w.roll_damage(armor_offset=2)
-        assert r == 2 # Ignores one point of armor offset
+        r = w.roll_damage(armor="Moderate")
+        assert r.total == 2 # Ignores one point of armor offset
 
 
 def test_armor_offset_unarmored_roll():
@@ -57,7 +57,7 @@ def test_armor_offset_unarmored_roll():
     with patch.object(Weapon, 'roll_d6', return_value=2):
         w = Weapon(range(7), ignore_armor=True)
         r = w.roll_damage()
-        assert r == 2
+        assert r.total == 2
 
 
 def test_attack_damage_mod_roll():
@@ -65,7 +65,7 @@ def test_attack_damage_mod_roll():
     with patch.object(Weapon, 'roll_d6', return_value=2):
         w = Weapon(range(7))
         r = w.roll_damage(damage_bonus=2)
-        assert r == 4
+        assert r.total == 4
 
 
 def test_weapon_lookup_damage():
