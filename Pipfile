@@ -14,7 +14,6 @@ pytest-asyncio = "*"
 python-dotenv = "*"
 flake8 = "*"
 discord-py = "*"
-d20 = "*"
 
 [requires]
 python_version = "3.6"

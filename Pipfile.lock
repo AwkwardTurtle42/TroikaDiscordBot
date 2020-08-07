@@ -1,11 +1,7 @@
 {
     "_meta": {
         "hash": {
-<<<<<<< HEAD
             "sha256": "88ac7d12681c9dbca71a5b81407bcac60827befc0e3555527c813ca81b972c2b"
-=======
-            "sha256": "2d3248dd4a96c0e84b8c0978b9fc2a70564013964296dd8fc3a730879cc86d22"
->>>>>>> 43dcb33... Things work, but I need to figure out how to test
         },
         "pipfile-spec": 6,
         "requires": {
@@ -51,27 +47,12 @@
             ],
             "version": "==19.3.0"
         },
-        "cachetools": {
-            "hashes": [
-                "sha256:513d4ff98dd27f85743a8dc0e92f55ddb1b49e060c2d5961512855cda2c01a98",
-                "sha256:bbaa39c3dede00175df2dc2b03d0cf18dd2d32a7de7beb68072d13043c9edb20"
-            ],
-            "version": "==4.1.1"
-        },
         "chardet": {
             "hashes": [
                 "sha256:84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae",
                 "sha256:fc323ffcaeaed0e0a02bf4d117757b98aed530d9ed4531e3e15460124c106691"
             ],
             "version": "==3.0.4"
-        },
-        "d20": {
-            "hashes": [
-                "sha256:3832dd6bf217114f2e367ec14a238dcf71cc23a020ba5320987d59f0e667a89f",
-                "sha256:7cd9bc777ac557a9c24fe75099f5ee55987ce91cfd1248763ee2a7ccf3987317"
-            ],
-            "index": "pypi",
-            "version": "==1.0.4"
         },
         "discord-py": {
             "hashes": [
@@ -109,12 +90,6 @@
             ],
             "markers": "python_version < '3.8'",
             "version": "==1.7.0"
-        },
-        "lark-parser": {
-            "hashes": [
-                "sha256:9e7589365d6b6de1cca40b0eaec31104a3fb96a37a11a9dfd5098e95b50aa6cd"
-            ],
-            "version": "==0.9.0"
         },
         "mccabe": {
             "hashes": [
