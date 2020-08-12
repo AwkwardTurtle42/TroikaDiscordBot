@@ -23,11 +23,10 @@ class WeaponCog(commands.Cog):
 
     @weapon.command(name="damage",
                     brief="Rolls and computes the damage from a weapon against an armor type with an optional bonus. Arguments: weapon [light|medium|heavy] [bonus]",
-                    rest_is_raw=True,
                     usage="weapon name [light|medium|heavy] [+1]")
     async def damage(self, ctx, *args):
         arg_str = ' '.join(args)
-        print("ARGS: ", arg_str)
+
         # DEFINE REGEXPS
         DAMAGE_REGEXP_TWO_INTS = re.compile("(.+) ([+-]?[0-9]+) ([+-]?[0-9]+)")
         DAMAGE_REGEXP_BONUS_ONLY = re.compile("(.+) ([+-]?[0-9]+)")

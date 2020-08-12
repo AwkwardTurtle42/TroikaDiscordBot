@@ -64,7 +64,7 @@ class Weapon:
             roll += damage_bonus
 
         if roll < 1:
-            roll_display += " = {roll} [**min value must be 1**]"
+            roll_display += f" = {roll} [**min value must be 1**]"
             roll = 1
 
         roll_display += f" = `{roll}`"

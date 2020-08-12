@@ -126,6 +126,7 @@ def test_initiative_shuffles():
     t = InitiativeTracker()
     t.add_token("Goblin", 4)
     t.add_token("Vince McFighty", 2)
+    t.add_token("Dragon", 20)
 
     t.start_round()
     turn1 = t.round_bag.copy()
@@ -140,14 +141,16 @@ def test_delay_init_tracker():
     t = InitiativeTracker()
     t.add_token("Goblin", 4)
     t.add_token("Vince McFighty", 2)
+    t.add_token("Dragon", 20)
 
     t.start_round()
-    assert t.count_round_tokens() == 7
+    assert t.count_round_tokens() == 27
     turn1 = t.round_bag.copy()
     drawn = t.draw_token()
-    assert t.count_round_tokens() == 6
+    if drawn != END_OF_ROUND_TOKEN:
+        assert t.count_round_tokens() == 26
 
-    t.delay_token(drawn)
-    assert t.count_round_tokens() == 7
-    turn1a = t.round_bag.copy()
-    assert turn1a != turn1
+        t.delay_token(drawn)
+        assert t.count_round_tokens() == 27
+        turn1a = t.round_bag.copy()
+        assert turn1a != turn1
