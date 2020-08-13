@@ -58,10 +58,14 @@ class InitiativeTracker:
 
         return output_string.rstrip()
 
+    def shuffle_tokens(self):
+        if self.in_round:
+            random.shuffle(self.round_bag)
+
     def start_round(self):
         self.round_bag = self.bag.copy()
         self.round_bag.append(END_OF_ROUND_TOKEN)
-        random.shuffle(self.round_bag)
+        self.shuffle_tokens()
         self.round_num += 1
         self.drawn_log.append([])
         self.in_round = True
@@ -77,11 +81,21 @@ class InitiativeTracker:
         self.drawn_log[-1].append(token)
         return token
 
+    def current_token(self):
+        if not self.in_round:
+            return END_OF_ROUND_TOKEN
+        return self.drawn_log[-1][-1]
+
+    def current_round_history(self):
+        if not self.in_round:
+            return END_OF_ROUND_TOKEN
+        return self.drawn_log[-1]
+
     def delay_token(self, token):
         '''A user can delay action, returning their token to the bag for the round'''
         if self.in_round:
             self.round_bag.append(token)
-            random.shuffle(self.round_bag)
+            self.shuffle_tokens()
 
     def count_round_tokens(self):
         return len(self.round_bag)

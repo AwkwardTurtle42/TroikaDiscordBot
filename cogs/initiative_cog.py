@@ -30,7 +30,7 @@ class InitiativeCog(commands.Cog):
     async def begin(self, ctx, *args):
         """Begins combat in the channel. Users mst add tokens then start rounds"""
         self.init_tracker = InitiativeTracker()
-        await ctx.send("```Battle started. Now add tokens with init add...```")
+        await ctx.send("Battle started. Now add tokens with !init add...")
 
     @init.command(name="add", help="Adds [number] [tokens] to the bag. May list more than one player")
     async def add(self, ctx, *args):
@@ -94,7 +94,7 @@ class InitiativeCog(commands.Cog):
             if token == END_OF_ROUND_TOKEN:
                 await ctx.send(f"END OF ROUND {self.init_tracker.round_num}")
             else:
-                await ctx.send(f"Current Turn: {token}")
+                await ctx.send(f"Current Turn: **{token}**")
 
 
     @init.command(name="current")
@@ -103,7 +103,9 @@ class InitiativeCog(commands.Cog):
             await ctx.send(NOT_IN_ROUND_MESSAGE)
         else:
             token = self.init_tracker.current_token()
-            await ctx.send(f"ROUND {self.init_tracker.round_num()} current: {token} history: {self.init_tracker.drawn_log[-1]}")
+            history = self.init_tracker.current_round_history()[:-1]
+            history.reverse()
+            await ctx.send(f"ROUND {self.init_tracker.round_num} current: **{token}** recent: {', '.join(history)}")
 
 
     @init.command(name="delay", help="Puts a token back in the bag and reshuffles it")
