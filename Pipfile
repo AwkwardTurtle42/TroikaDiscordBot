@@ -12,7 +12,6 @@ pytest-cov = "*"
 python-dotenv = "*"
 flake8 = "*"
 discord-py = "*"
-python-pylint = "*"
 
 [requires]
 python_version = "3.6"
