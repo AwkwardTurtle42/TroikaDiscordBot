@@ -13,7 +13,7 @@ class OopsCog(commands.Cog):
     @commands.command()
     async def oops(self, ctx):
         roll, oops = self.roll_oops()
-        await ctx.send(f"d66 (**{roll}**): `{oops}`")
+        await ctx.send(f"OOPS (**{roll}**): `{oops}`")
 
 
 def setup(bot):

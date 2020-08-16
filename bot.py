@@ -7,25 +7,25 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 
-from cogs.initiative_cog import InitiativeCog
-from cogs.weapon_cog import WeaponCog
-
 # Stuff to set up the discord bot
 load_dotenv()
-discord_token = os.getenv("DISCORD_TOKEN")
+DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 
 COGS = (
-    "cogs.initiative_cog", "cogs.weapon_cog", "cogs.oops_cog"
+    "cogs.initiative_cog", "cogs.battle_cog", "cogs.spell_cog", "cogs.luck_cog"
 )
 
 class TroikaBot(commands.Bot):
     def __init__(self, prefix, description=None, **options):
         super(TroikaBot, self).__init__(prefix, description=description, **options)
 
+
 desc = '''
 TroikaBot, a special bot for playing Troika on discord
 '''
+
 bot = TroikaBot(prefix='!', description=desc, activity=discord.Game(name=f'Troika! | !help'))
+
 
 # Borrowed from avrae
 log_formatter = logging.Formatter('%(levelname)s:%(name)s: %(message)s')
@@ -68,4 +68,4 @@ for cog in COGS:
     bot.load_extension(cog)
 
 if __name__ == "__main__":
-    bot.run(discord_token)
+    bot.run(DISCORD_TOKEN)
