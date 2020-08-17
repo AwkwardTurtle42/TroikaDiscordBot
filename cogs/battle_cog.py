@@ -97,11 +97,11 @@ class BattleCog(commands.Cog):
 
         dice_string = ''
         if (dice1 == 6 and dice2 == 6) or (dice1 == 1 and dice2 == 1):
-            dice_string = f"**{dice1}**, **{dice2}**"
+            dice_string = f"**{dice1}+{dice2}**"
         else:
-            dice_string = f"{dice1}, {dice2}"
+            dice_string = f"{dice1}+{dice2}"
         
-        return dice.RollResult(total, f"2d6 ({dice_string}) = {total}")
+        return dice.RollResult(total, f"2d6({dice_string}) = {total}")
 
     
     @commands.command(name="attack",
@@ -120,15 +120,15 @@ class BattleCog(commands.Cog):
         if attack_roll.total == MIGHTY_BLOW_ROLL and defense_roll.total == MIGHTY_BLOW_ROLL:
             await ctx.send(f"{message_output}**SPECTACULAR CLINCH!** Both weapons shatter! (beasts lose 1d6 stamina)")
         elif attack_roll.total == MIGHTY_BLOW_ROLL:
-            await ctx.send(f"{message_output}**ATTACKER MIGHTY BLOW** Attacker wins and should score double damage against attacker")
+            await ctx.send(f"{message_output}**ATTACKER MIGHTY BLOW** Attacker wins and should score double damage")
         elif defense_roll.total == MIGHTY_BLOW_ROLL:
-            await ctx.send(f"{message_output}**DEFENDER MIGHTY BLOW** Defender wins and should score double damage against defender")
+            await ctx.send(f"{message_output}**DEFENDER MIGHTY BLOW** Defender wins and should score double damage")
         elif attack_roll.total == FUMBLE_ROLL and defense_roll.total == FUMBLE_ROLL:
             await ctx.send(f"{message_output}**DOUBLE FUMBLE** Both sides roll damage with a +1 bonus")
         elif attack_roll.total == FUMBLE_ROLL:
-            await ctx.send(f"{message_output}**ATTACKER FUMBLE!** Attacker loses and defender adds a +1 bonus to their damage roll")
+            await ctx.send(f"{message_output}**ATTACKER FUMBLE** Attacker loses and defender adds a +1 bonus to their damage roll")
         elif defense_roll.total == FUMBLE_ROLL:
-            await ctx.send(f"{message_output}**DEFENDER FUMBLE!** Defender loses and attacker adds a +1 bonus to their damage roll")
+            await ctx.send(f"{message_output}**DEFENDER FUMBLE** Defender loses and attacker adds a +1 bonus to their damage roll")
         elif attack_total > defense_total:
             await ctx.send(f"{message_output}**ATTACKER WINS** Roll for damage")
         elif defense_total > attack_total:
