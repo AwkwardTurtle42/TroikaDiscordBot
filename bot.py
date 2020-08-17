@@ -15,6 +15,7 @@ COGS = (
     "cogs.initiative_cog", "cogs.battle_cog", "cogs.spell_cog", "cogs.luck_cog"
 )
 
+
 class TroikaBot(commands.Bot):
     def __init__(self, prefix, description=None, **options):
         super(TroikaBot, self).__init__(prefix, description=description, **options)
@@ -41,6 +42,7 @@ log = logging.getLogger('bot')
 @bot.event
 async def on_ready():
     log.info("Logging in...")
+
 
 @bot.event
 async def on_resumed():

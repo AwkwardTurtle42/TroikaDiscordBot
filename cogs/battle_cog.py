@@ -1,6 +1,5 @@
 import re
 
-import discord
 from discord.ext import commands
 from discord.ext.commands import NoPrivateMessage, ArgumentParsingError, BadArgument
 
@@ -10,6 +9,7 @@ from cogs.models.weapon_list import ALL_WEAPONS
 
 MIGHTY_BLOW_ROLL = 12
 FUMBLE_ROLL = 2
+
 
 class BattleCog(commands.Cog):
     def __init__(self, bot):
@@ -91,7 +91,6 @@ class BattleCog(commands.Cog):
 
         await ctx.send(f"ROLL {damage_roll.result} DAMAGE=`{damage_amount}`")
 
-
     def roll_2d6(self):
         dice1, dice2, total = dice.roll_2d6()
 
@@ -100,10 +99,9 @@ class BattleCog(commands.Cog):
             dice_string = f"**{dice1}+{dice2}**"
         else:
             dice_string = f"{dice1}+{dice2}"
-        
+
         return dice.RollResult(total, f"2d6({dice_string}) = {total}")
 
-    
     @commands.command(name="attack",
                       aliases=["a", "att"],
                       brief="Rolls and computes the winner of an attack. Arguments: attack attacker_skill_mod defender_skill_mod",
@@ -136,7 +134,7 @@ class BattleCog(commands.Cog):
         else:
             await ctx.send(f"{message_output}**TIE** Nobody takes damage")
 
-        
+
 def setup(bot):
     '''Called by extension setup'''
     bot.add_cog(BattleCog(bot))

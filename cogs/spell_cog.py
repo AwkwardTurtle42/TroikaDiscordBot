@@ -1,9 +1,9 @@
-import discord
 from discord.ext import commands
 from cogs.utils import oops, dice
 
 SUCCESS_TOTAL = 2
 OOPS_TOTAL = 12
+
 
 class SpellCog(commands.Cog):
     def __init__(self, bot):

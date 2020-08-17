@@ -1,6 +1,7 @@
 import mock
 from cogs.utils.oops import roll_oops, OOPS_TABLE
 
+
 def test_oops_table():
     '''Runs through every value in the oops table'''
     for r1 in range(1, 6):

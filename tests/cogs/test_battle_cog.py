@@ -6,6 +6,7 @@ from cogs.utils import dice
 from cogs.models.weapon import Weapon
 from cogs.battle_cog import BattleCog
 
+
 @pytest.mark.asyncio
 async def test_damage_weapon_only(mocker):
     tbot = bot.TroikaBot('!')

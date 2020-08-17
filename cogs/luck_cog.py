@@ -1,8 +1,8 @@
-import discord
 from discord.ext import commands
 from discord.ext.commands import NoPrivateMessage
 
 from cogs.utils import dice
+
 
 class LuckCog(commands.Cog):
     def __init__(self, bot):
@@ -18,10 +18,10 @@ class LuckCog(commands.Cog):
                       aliases=["l"],
                       brief="Tests your luck by rolling 2d6 against your current luck",
                       usages="current_luck")
-    async def luck(self, ctx, luck_points:int):
+    async def luck(self, ctx, luck_points: int):
         roll = dice.roll_under(luck_points)
         await ctx.send(roll.result)
 
 
 def setup(bot):
-     bot.add_cog(LuckCog(bot))
+    bot.add_cog(LuckCog(bot))

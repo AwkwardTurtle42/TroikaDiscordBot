@@ -1,6 +1,3 @@
-import re
-
-from cogs.utils.dice import roll_d6
 from cogs.models.weapon import Weapon
 
 
@@ -16,6 +13,7 @@ def normalize_armor_name(name):
 
 class WeaponList:
     '''Represents a collection of weapons for the game'''
+
     def __init__(self):
         self.weapons = {}
 
@@ -72,4 +70,3 @@ STANDARD_WEAPONS = [
 ALL_WEAPONS = WeaponList()
 for w in STANDARD_WEAPONS:
     ALL_WEAPONS.add_weapon(w)
-

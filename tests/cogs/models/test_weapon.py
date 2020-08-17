@@ -1,5 +1,5 @@
 import pytest
-from mock import patch, Mock
+from mock import patch
 from cogs.models.weapon import Weapon
 
 
@@ -15,8 +15,8 @@ def test_init_default_values():
     assert weapon.damage_table == range(7)
     assert not weapon.two_handed
     assert not weapon.ignore_armor
-    assert weapon.name == None
-    assert weapon.style == None
+    assert weapon.name is None
+    assert weapon.style is None
 
 
 def test_init_set_optional_values():
@@ -29,7 +29,6 @@ def test_init_set_optional_values():
 
 def test_basic_damage_roll():
     '''A basic test of damage rolls'''
-    #with mock.patch('cogs.utils.dice.roll_d6', return_value=4):
     with patch.object(Weapon, 'roll_d6', return_value=4):
         w = Weapon(range(7))
         r = w.roll_damage()
@@ -49,7 +48,7 @@ def test_ignore_armor_offset_roll():
     with patch.object(Weapon, 'roll_d6', return_value=3):
         w = Weapon(range(7), ignore_armor=True)
         r = w.roll_damage(armor="Moderate")
-        assert r.total == 2 # Ignores one point of armor offset
+        assert r.total == 2
 
 
 def test_armor_offset_unarmored_roll():

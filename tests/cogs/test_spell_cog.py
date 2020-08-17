@@ -18,19 +18,19 @@ async def test_spell_cog(mocker):
     await dpytest.message("!oops")
     dpytest.verify_message("OOPS (**23**): `A very surprised orc appears.`")
 
-    mocker.patch.object(dice, 'roll_2d6', return_value=(1,2,3))
+    mocker.patch.object(dice, 'roll_2d6', return_value=(1, 2, 3))
     await dpytest.message("!spell 7")
     dpytest.verify_message("**SUCCESS** 2d6(1+2) = `3` ≤ `7`")
 
-    mocker.patch.object(dice, 'roll_2d6', return_value=(5,5,10))
+    mocker.patch.object(dice, 'roll_2d6', return_value=(5, 5, 10))
     await dpytest.message("!spell 7")
     dpytest.verify_message("**FAILURE** 2d6(5+5) = `10` > `7`")
 
-    mocker.patch.object(dice, "roll_2d6", return_value=(1,1,2))
+    mocker.patch.object(dice, "roll_2d6", return_value=(1, 1, 2))
     await dpytest.message("!spell 1")
     dpytest.verify_message("**GUARANTEED SUCCESS** 2d6(1+1)")
 
-    mocker.patch.object(dice, "roll_2d6", return_value=(6,6,12))
+    mocker.patch.object(dice, "roll_2d6", return_value=(6, 6, 12))
     await dpytest.message("!spell 7")
     dpytest.verify_message("**CATASTROPHIC FAILURE** 2d6(6+6)")
     dpytest.verify_message("OOPS (**23**): `A very surprised orc appears.`")

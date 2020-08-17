@@ -1,4 +1,3 @@
-import discord
 from discord.ext import commands
 from discord.ext.commands import NoPrivateMessage
 
@@ -6,11 +5,13 @@ from cogs.models.initiative_tracker import InitiativeTracker, END_OF_ROUND_TOKEN
 
 NOT_IN_ROUND_MESSAGE = "You are not currently in a round of combat. Start by calling !round"
 
+
 class InitiativeCog(commands.Cog):
     """
     Initiative tracking commands. Use !help init for more info.
 
     """
+
     def __init__(self, bot):
         self.bot = bot
         self.init_tracker = None
@@ -56,7 +57,6 @@ class InitiativeCog(commands.Cog):
                 )
         await ctx.send(output_string)
 
-
     @init.command(name="remove", help="Removes [number] [tokens] from the bag")
     async def remove(self, ctx, count: int, token: str):
         '''Removes N tokens from the bag'''
@@ -74,7 +74,6 @@ class InitiativeCog(commands.Cog):
     async def show(self, ctx):
         """Prints out a representation of the tokens in the bag"""
         await ctx.send(f"Initiative Bag: {self.init_tracker.display_tokens()}")
-    
 
     @init.command(name="round", help="Begin a round of combat")
     async def round(self, ctx):
@@ -82,7 +81,6 @@ class InitiativeCog(commands.Cog):
         self.init_tracker.start_round()
         await ctx.send(f"Starting round {self.init_tracker.round_num} of combat! Shuffling the bag...")
         await self.draw(ctx)
-
 
     @init.command()
     async def draw(self, ctx):
@@ -96,7 +94,6 @@ class InitiativeCog(commands.Cog):
             else:
                 await ctx.send(f"Current Turn: **{token}**")
 
-
     @init.command(name="current")
     async def current_turn(self, ctx):
         if not self.init_tracker.in_round:
@@ -107,7 +104,6 @@ class InitiativeCog(commands.Cog):
             history.reverse()
             await ctx.send(f"ROUND {self.init_tracker.round_num} current: **{token}** recent: {', '.join(history)}")
 
-
     @init.command(name="delay", help="Puts a token back in the bag and reshuffles it")
     async def delay(self, ctx, token:str):
         if not self.init_tracker.in_round:
@@ -115,6 +111,7 @@ class InitiativeCog(commands.Cog):
         else:
             self.init_tracker.delay_token(token)
             await ctx.send(f"Pushing {token} back into the initiative tracker")
+
 
 def setup(bot):
     '''Called by load_extension'''

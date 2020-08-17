@@ -1,7 +1,6 @@
-import pytest
 from cogs.models.weapon import Weapon
 from cogs.models.weapon_list import normalize_weapon_name, normalize_armor_name, WeaponList, ALL_WEAPONS
-import mock
+
 
 def test_normalize_weapon_name():
     '''Test normalizing the weapon name'''

@@ -1,8 +1,10 @@
 '''A place for useful utility functions'''
 import random
 
+
 class RollResult:
     '''A somewhat compatible class equivalent to d20'''
+
     def __init__(self, total, result):
         self.total = total
         self.result = result
