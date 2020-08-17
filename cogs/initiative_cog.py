@@ -105,7 +105,7 @@ class InitiativeCog(commands.Cog):
             await ctx.send(f"ROUND {self.init_tracker.round_num} current: **{token}** recent: {', '.join(history)}")
 
     @init.command(name="delay", help="Puts a token back in the bag and reshuffles it")
-    async def delay(self, ctx, token:str):
+    async def delay(self, ctx, token: str):
         if not self.init_tracker.in_round:
             await ctx.send(NOT_IN_ROUND_MESSAGE)
         else:

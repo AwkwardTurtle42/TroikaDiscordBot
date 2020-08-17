@@ -1,4 +1,3 @@
-import pytest
 from cogs.models.initiative_tracker import InitiativeTracker, END_OF_ROUND_TOKEN
 
 

@@ -20,7 +20,7 @@ def roll_2d6():
     die1 = roll_d6()
     die2 = roll_d6()
 
-    return die1, die2, die1+die2
+    return die1, die2, die1 + die2
 
 
 def roll_under(target):
@@ -35,5 +35,5 @@ def roll_d66():
     '''Rolls a d66. Returns a single value'''
     die1 = roll_d6()
     die2 = roll_d6()
-    total = die1*10 + die2
+    total = (die1 * 10) + die2
     return total

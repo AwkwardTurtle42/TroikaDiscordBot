@@ -56,7 +56,7 @@ class Weapon:
         roll -= armor_offset
 
         if armor_offset > 0 and self.ignore_armor:
-            roll_display += f" +1 [_ignore armor_]"
+            roll_display += " +1 [_ignore armor_]"
             roll += 1
 
         if damage_bonus > 0:
@@ -80,4 +80,4 @@ class Weapon:
             roll_total = 7
 
         # rolls range 1-7, arrays range 0-6
-        return self.damage_table[roll_total-1]
+        return self.damage_table[roll_total - 1]

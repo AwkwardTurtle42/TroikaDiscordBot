@@ -17,9 +17,9 @@ class SpellCog(commands.Cog):
     async def spell(self, ctx, skill_points: int):
         roll = dice.roll_under(skill_points)
         if roll.total == SUCCESS_TOTAL:
-            await ctx.send(f"**GUARANTEED SUCCESS** 2d6(1+1)")
+            await ctx.send("**GUARANTEED SUCCESS** 2d6(1+1)")
         elif roll.total == OOPS_TOTAL:
-            await ctx.send(f"**CATASTROPHIC FAILURE** 2d6(6+6)")
+            await ctx.send("**CATASTROPHIC FAILURE** 2d6(6+6)")
             await self.oops(ctx)
         else:
             await ctx.send(roll.result)
