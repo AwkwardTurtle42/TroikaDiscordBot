@@ -36,10 +36,6 @@ class Weapon:
         self.two_handed = two_handed
         self.ignore_armor = ignore_armor
 
-    def roll_d6(self):
-        '''Doing this because Python mocking is dumb'''
-        return dice.roll_d6()
-
     def lookup_armor_offset(self, armor):
         if armor.isnumeric():
             return int(armor)
@@ -48,7 +44,7 @@ class Weapon:
 
     def roll_damage(self, armor="No", damage_bonus=0):
         '''Computes a damage roll, adjusting various modifiers'''
-        roll = self.roll_d6()
+        roll = dice.roll_d6()
         roll_display = f"1d6 (**{roll}**)"
 
         armor_offset = self.lookup_armor_offset(armor)
