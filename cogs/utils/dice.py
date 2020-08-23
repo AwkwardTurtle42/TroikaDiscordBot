@@ -10,6 +10,11 @@ class RollResult:
         self.result = result
 
 
+def roll_d3():
+    """Rolls a single d3"""
+    return random.randint(1, 3)
+
+
 def roll_d6():
     '''Rolls a single d6'''
     return random.randint(1, 6)
