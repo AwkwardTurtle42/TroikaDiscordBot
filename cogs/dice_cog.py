@@ -1,5 +1,6 @@
 import re
 from discord.ext import commands
+from discord.ext.commands import ArgumentParsingError
 
 from cogs.utils import dice
 
@@ -65,15 +66,12 @@ class DiceCog(commands.Cog):
 
             await ctx.send(f"2d6 ({r1}+{r2}){modifier_string(modifier)} = `{total+modifier}`")
 
-
         if not regexp_matched:
             raise ArgumentParsingError("Unable to understand your command")
-
 
     @commands.command(name="d6", hidden=True)
     async def roll_d6(self, ctx):
         await self.roll(ctx, "d6")
-
 
     @commands.command(name="2d6", hidden=True)
     async def roll_2d6(self, ctx):
