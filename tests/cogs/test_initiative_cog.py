@@ -3,7 +3,7 @@ import pytest
 
 import bot
 from cogs.models.initiative_tracker import InitiativeTracker, END_OF_ROUND_TOKEN
-from cogs.initiative_cog import InitiativeCog
+from cogs.initiative_cog import InitiativeCog, NO_INIT_TRACKER_MESSAGE, NOT_IN_ROUND_MESSAGE
 
 
 @pytest.mark.asyncio
@@ -38,10 +38,36 @@ async def test_init_cog_normal(mocker):
     dpytest.verify_message("END OF ROUND 1")
 
     await dpytest.message("!i draw")
-    dpytest.verify_message("You are not currently in a round of combat. Start by calling !round")
+    dpytest.verify_message(NOT_IN_ROUND_MESSAGE)
 
     await dpytest.message("!i current")
-    dpytest.verify_message("You are not currently in a round of combat. Start by calling !round")
+    dpytest.verify_message(NOT_IN_ROUND_MESSAGE)
+
+    await dpytest.message("!i end")
+    dpytest.verify_message("Battle is now ended")
+
+
+@pytest.mark.asyncio
+async def test_init_call_when_ended():
+    tbot = bot.TroikaBot('!')
+    tbot.add_cog(InitiativeCog(tbot))
+
+    dpytest.configure(tbot)
+
+    await dpytest.message("!i add 4 Ogre")
+    dpytest.verify_message(NO_INIT_TRACKER_MESSAGE)
+
+    await dpytest.message("!i round")
+    dpytest.verify_message(NO_INIT_TRACKER_MESSAGE)
+
+    await dpytest.message("!i draw")
+    dpytest.verify_message(NO_INIT_TRACKER_MESSAGE)
+
+    await dpytest.message("!i round")
+    dpytest.verify_message(NO_INIT_TRACKER_MESSAGE)
+
+    await dpytest.message("!i current")
+    dpytest.verify_message(NO_INIT_TRACKER_MESSAGE)
 
 
 @pytest.mark.asyncio
