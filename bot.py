@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 # Stuff to set up the discord bot
 load_dotenv()
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
+DISCORD_PREFIX = os.getenv("DISCORD_PREFIX") or "!"
 
 COGS = (
     "cogs.initiative_cog", "cogs.battle_cog", "cogs.spell_cog", "cogs.luck_cog"
@@ -25,7 +26,7 @@ desc = '''
 TroikaBot, a special bot for playing Troika on discord
 '''
 
-bot = TroikaBot(prefix='!', description=desc, activity=discord.Game(name=f'Troika! | !help'))
+bot = TroikaBot(prefix=DISCORD_PREFIX, description=desc, activity=discord.Game(name=f'Troika! | !help'))
 
 
 # Borrowed from avrae
