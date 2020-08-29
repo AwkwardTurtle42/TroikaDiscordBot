@@ -36,7 +36,7 @@ Test your luck against a specific luck count
 
 |Command|Output|Aliases|
 |----|----|----|
-|`!luck 8`|**SUCCESS** 2d6(3+4) = `7` ≤ `8`"|`!l 7`
+|`!luck 8`|**SUCCESS** 2d6(3+4) = `7` ≤ `8`|`!l 7`
 
 ### Spells
 
@@ -44,7 +44,7 @@ Rolls under a spell's skill and computes success or failure. It also handles cri
 
 |Command|Output|Alias|
 |-----|----|----|
-|`!spell 9`|**SUCCESS** 2d6(1+2) = `3` ≤ `9`"||
+|`!spell 9`|**SUCCESS** 2d6(1+2) = `3` ≤ `9`||
 |`!oops`|OOPS (**23**): `A very surprised orc appears.`||
 
 ### Battle Commands
@@ -68,6 +68,7 @@ The damage command takes an optional armor argument (with values of _no, light, 
 Manage initiative and random draws of tokens for each new round.
 
 |Command|Output|Alias|
+|---|---|---|
 |`!init begin`|Battle started. Now add tokens with !init add...|`!i begin`|
 |`!init add 4 Goblin 6 Ogre 2 Fred`|Added 4 Goblin tokens. Added 6 Ogre tokens. Added 2 Fred tokens.|`!i add`|
 |`!init round`|Starting round 1 of combat! Shuffling the bag... Current Turn: **Goblin**|`!i round`|
