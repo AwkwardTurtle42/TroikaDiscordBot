@@ -13,7 +13,7 @@ DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 DISCORD_PREFIX = os.getenv("DISCORD_PREFIX") or "!"
 
 COGS = (
-    "cogs.initiative_cog", "cogs.battle_cog", "cogs.spell_cog", "cogs.luck_cog"
+    "cogs.initiative_cog", "cogs.battle_cog", "cogs.spell_cog", "cogs.luck_cog", "cogs.dice_cog"
 )
 
 

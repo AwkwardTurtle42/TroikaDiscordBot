@@ -1,5 +1,5 @@
 import pytest
-from mock import patch
+from cogs.utils import dice
 from cogs.models.weapon import Weapon
 
 
@@ -27,44 +27,44 @@ def test_init_set_optional_values():
     assert weapon.ignore_armor
 
 
-def test_basic_damage_roll():
+def test_basic_damage_roll(mocker):
     '''A basic test of damage rolls'''
-    with patch.object(Weapon, 'roll_d6', return_value=4):
-        w = Weapon(range(7))
-        r = w.roll_damage()
-        assert r.total == 4
+    mocker.patch.object(dice, 'roll_d6', return_value=4)
+    w = Weapon(range(7))
+    r = w.roll_damage()
+    assert r.total == 4
 
 
-def test_basic_armor_offset_roll():
+def test_basic_armor_offset_roll(mocker):
     '''Armor offset should reduce damage roll to a minimum of 1'''
-    with patch.object(Weapon, 'roll_d6', return_value=2):
-        w = Weapon(range(7))
-        r = w.roll_damage(armor="Medium")
-        assert r.total == 1
+    mocker.patch.object(dice, 'roll_d6', return_value=2)
+    w = Weapon(range(7))
+    r = w.roll_damage(armor="Medium")
+    assert r.total == 1
 
 
-def test_ignore_armor_offset_roll():
+def test_ignore_armor_offset_roll(mocker):
     '''Some weapons ignore one point of the armor offset'''
-    with patch.object(Weapon, 'roll_d6', return_value=3):
-        w = Weapon(range(7), ignore_armor=True)
-        r = w.roll_damage(armor="Moderate")
-        assert r.total == 2
+    mocker.patch.object(dice, 'roll_d6', return_value=3)
+    w = Weapon(range(7), ignore_armor=True)
+    r = w.roll_damage(armor="Moderate")
+    assert r.total == 2
 
 
-def test_armor_offset_unarmored_roll():
+def test_armor_offset_unarmored_roll(mocker):
     '''Ignoring armor should have no effect on unarmored foes'''
-    with patch.object(Weapon, 'roll_d6', return_value=2):
-        w = Weapon(range(7), ignore_armor=True)
-        r = w.roll_damage()
-        assert r.total == 2
+    mocker.patch.object(dice, 'roll_d6', return_value=2)
+    w = Weapon(range(7), ignore_armor=True)
+    r = w.roll_damage()
+    assert r.total == 2
 
 
-def test_attack_damage_mod_roll():
+def test_attack_damage_mod_roll(mocker):
     '''Sometimes there are bonuses on damage rolls'''
-    with patch.object(Weapon, 'roll_d6', return_value=2):
-        w = Weapon(range(7))
-        r = w.roll_damage(damage_bonus=2)
-        assert r.total == 4
+    mocker.patch.object(dice, 'roll_d6', return_value=2)
+    w = Weapon(range(7))
+    r = w.roll_damage(damage_bonus=2)
+    assert r.total == 4
 
 
 def test_weapon_lookup_damage():

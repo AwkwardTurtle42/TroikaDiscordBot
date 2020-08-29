@@ -42,7 +42,6 @@ class BattleCog(commands.Cog):
         # weapon, armor offset, bonus offset
         match = DAMAGE_REGEXP_TWO_INTS.match(arg_str)
         if match:
-            print("TWO_INTS")
             regexp_matched = True
             weapon_name = match.group(1)
             armor = match.group(2)
@@ -50,7 +49,6 @@ class BattleCog(commands.Cog):
 
         match = DAMAGE_REGEXP_ARMOR_BONUS.match(arg_str)
         if not regexp_matched and match:
-            print("ARMOR_BONUS", match)
             regexp_matched = True
             weapon_name = match.group(1)
             armor = match.group(2)
@@ -58,7 +56,6 @@ class BattleCog(commands.Cog):
 
         match = DAMAGE_REGEXP_ARMOR.match(arg_str)
         if not regexp_matched and match:
-            print("ARMOR")
             regexp_matched = True
             weapon_name = match.group(1)
             armor = match.group(2)
@@ -73,7 +70,6 @@ class BattleCog(commands.Cog):
 
         match = DAMAGE_REGEXP_NONE.match(arg_str)
         if not regexp_matched and match:
-            print("NONE")
             regexp_matched = True
             weapon_name = match.group(1)
             armor = "No"
