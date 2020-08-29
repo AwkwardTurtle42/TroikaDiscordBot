@@ -28,7 +28,7 @@ class InitiativeCog(commands.Cog):
             raise NoPrivateMessage()
         return True
 
-    @init.command()
+    @init.command(aliases=["start"])
     async def begin(self, ctx, *args):
         """Begins combat in the channel. Users mst add tokens then start rounds"""
         self.init_tracker = InitiativeTracker()

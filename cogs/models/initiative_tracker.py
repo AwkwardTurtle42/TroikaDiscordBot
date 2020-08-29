@@ -65,10 +65,10 @@ class InitiativeTracker:
     def start_round(self):
         self.round_bag = self.bag.copy()
         self.round_bag.append(END_OF_ROUND_TOKEN)
-        self.shuffle_tokens()
         self.round_num += 1
         self.drawn_log.append([])
         self.in_round = True
+        self.shuffle_tokens()
 
     def draw_token(self):
         if not self.in_round:
