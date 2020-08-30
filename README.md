@@ -69,14 +69,16 @@ Manage initiative and random draws of tokens for each new round.
 
 |Command|Output|Alias|
 |---|---|---|
-|`!init begin`|Battle started. Now add tokens with !init add...|`!i begin`|
-|`!init add 4 Goblin 6 Ogre 2 Fred`|Added 4 Goblin tokens. Added 6 Ogre tokens. Added 2 Fred tokens.|`!i add`|
-|`!init round`|Starting round 1 of combat! Shuffling the bag... Current Turn: **Goblin**|`!i round`|
-|`!init draw`|Current Turn: **Fred**|`!i draw`|
+|`!init begin`|Battle started. Now add tokens with !init add... (_can also take add tokens in this command_)|`!i begin`, `!begin`, `!start`|
+|`!init add 4 Goblin 6 Ogre 2 Fred`|Added 4 Goblin tokens. Added 6 Ogre tokens. Added 2 Fred tokens.|`!i add`, `!add`|
+|`!init show`|Show the contents of the initiative bag|`!show`|
+|`!init round`|Starting round 1 of combat! Shuffling the bag... Current Turn: **Goblin**|`!i round`, `!round`|
+|`!init draw`|Current Turn: **Fred**|`!i draw`, `!draw`|
 |`!init current`|ROUND 1 current: **Fred** recent: Goblin||
-|`!init draw`|END OF ROUND 1|`!i draw`|
+|`!init draw`|END OF ROUND 1|`!i draw`, `!idraw`|
 |`!init remove 2 Ogre`|Removed 2 out of 6 Ogre tokens in the bag|`!i remove 2 Ogre`|
 |`!init delay Ogre`|Pushing Ogre back into the initiative tracker|`!i delay Ogre`|
+|`!init end`|Forcibly end combat (not necessarily required)||
 
 ## Running Locally
 
@@ -107,3 +109,14 @@ pipenv run python bot.py
 ```
 
 And it should connect to your Discord server. On Discord, you can test the bot by running some commands.
+
+## Next Steps
+
+While this bot should be enough to run locally, there are a few different major additions we could consider for the next generation:
+
+* Better Presentation. Consider using something like Discord Embeds to render messages more artfully.
+* Storing State: Currently the bot stores any necessary state in memory, which is fine as long as the code never crashes and the storage needs are simple (mainly just initiative tracking). But we might want to consider adding some local storage of some sort. This will be necessary for the next step.
+* Running as a Standalone Service. The bot right now is run locally, but we could consider moving to the model that Avrae uses where the bot is hosted and can be invited by users to their channels without needing to set it up and run it. It will need to be able to track state in order to do that.
+* Defining New Weapons and Spells. The system could allow users to add custom new weapons and spells and store them for specific campaigns.
+* Character Generation and Storage. Troika is a lot simpler than D&D, but we could support user generation and lookup of characters, including defining and importing new backgrounds. These characters could automatically be included in new initiative bags, automatically decrement their luck when they test it, etc. This is not as important for Troika as it is for D&D but it might be useful to some players
+* Rules Lookup. Look up rules in a compendium and echo them into the chat. Again, Troika is simple enough this probably isn't necessary, but such a system could be used potentially for storing and sharing story elements. But I don't think we want to be replicating Roll20 here.

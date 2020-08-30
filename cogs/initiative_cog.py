@@ -31,11 +31,14 @@ class InitiativeCog(commands.Cog):
         return True
 
     @init.command(aliases=["start"])
-    async def begin(self, ctx):
+    async def begin(self, ctx, *args):
         """Begins combat in the channel. Users mst add tokens then start rounds"""
         self.init_tracker = InitiativeTracker()
-        await ctx.send("Battle started. Now add tokens with !init add...")
-
+        if len(args) == 0:
+            await ctx.send("Battle started. Now add tokens with !init add...")
+        else:
+            await ctx.send("Battle started.")
+            await ctx.invoke(self.bot.get_command("init add"), arg=' '.join(args))
 
     @init.command()
     async def end(self, ctx):
@@ -86,14 +89,18 @@ class InitiativeCog(commands.Cog):
         else:
             await ctx.send(f"Removed all {removed} {token} tokens from the bag")
 
-    @init.command()
+    @init.command(name="show", aliases=["bag"])
     async def show(self, ctx):
         """Prints out a representation of the tokens in the bag"""
         if self.init_tracker is None:
             await ctx.send(NO_INIT_TRACKER_MESSAGE)
             return
 
-        await ctx.send(f"Initiative Bag: {self.init_tracker.display_tokens()}")
+        bag = self.init_tracker.current_tokens()
+        output_string = "Initiative Bag:\n"
+        for key in sorted(bag):
+            output_string += f"- **{key}** ({bag[key]})\n"
+        await ctx.send(output_string)
 
     @init.command(name="round", help="Begin a round of combat")
     async def round(self, ctx):
@@ -104,11 +111,11 @@ class InitiativeCog(commands.Cog):
 
         self.init_tracker.start_round()
         await ctx.send(f"Starting round {self.init_tracker.round_num} of combat! Shuffling the bag...")
-        await self.draw(ctx)
+        await ctx.invoke(self.bot.get_command("init draw"))
 
     @commands.command(name="round", hidden=True)
     async def roundAlias(self, ctx):
-        await self.round(ctx)
+        await ctx.invoke(self.bot.get_command("init round"))
         
     @init.command()
     async def draw(self, ctx):
@@ -126,7 +133,7 @@ class InitiativeCog(commands.Cog):
 
     @commands.command(name="draw", hidden=True)
     async def drawAlias(self, ctx):
-        await self.draw(ctx)
+        await ctx.invoke(self.bot.get_command("init draw"))
 
     @init.command(name="current")
     async def current_turn(self, ctx):
@@ -139,6 +146,10 @@ class InitiativeCog(commands.Cog):
             history = self.init_tracker.current_round_history()[:-1]
             history.reverse()
             await ctx.send(f"ROUND {self.init_tracker.round_num} current: **{token}** recent: {', '.join(history)}")
+
+    @commands.command(name="current", aliases=["turn", "now"], hidden=True)
+    async def current_turn_alias(self, ctx):
+        await ctx.invoke(self.bot.get_command("init current"))
 
     @init.command(name="delay", help="Puts a token back in the bag and reshuffles it")
     async def delay(self, ctx, token: str):

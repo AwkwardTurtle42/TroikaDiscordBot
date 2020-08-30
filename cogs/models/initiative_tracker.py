@@ -45,13 +45,16 @@ class InitiativeTracker:
             self.bag.remove(token)
         return to_remove
 
-    def display_tokens(self):
+    def current_tokens(self):
         counts = {}
         for token in self.bag:
             if token not in counts:
                 counts[token] = 0
             counts[token] += 1
+        return counts
 
+    def display_tokens(self):
+        counts = self.current_tokens()
         output_string = ""
         for key in sorted(counts):
             output_string += f"{key}({counts[key]}) "
