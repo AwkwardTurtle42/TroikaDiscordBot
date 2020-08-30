@@ -1,5 +1,7 @@
+import re
+
 from discord.ext import commands
-from discord.ext.commands import NoPrivateMessage
+from discord.ext.commands import NoPrivateMessage, ArgumentParsingError
 
 from cogs.models.initiative_tracker import InitiativeTracker, END_OF_ROUND_TOKEN
 
@@ -29,10 +31,11 @@ class InitiativeCog(commands.Cog):
         return True
 
     @init.command(aliases=["start"])
-    async def begin(self, ctx, *args):
+    async def begin(self, ctx):
         """Begins combat in the channel. Users mst add tokens then start rounds"""
         self.init_tracker = InitiativeTracker()
         await ctx.send("Battle started. Now add tokens with !init add...")
+
 
     @init.command()
     async def end(self, ctx):
@@ -43,26 +46,22 @@ class InitiativeCog(commands.Cog):
             self.init_tracker = None
 
     @init.command(name="add", help="Adds [number] [tokens] to the bag. May list more than one player")
-    async def add(self, ctx, *args):
+    async def add(self, ctx, *, arg):
         if self.init_tracker is None:
             await ctx.send(NO_INIT_TRACKER_MESSAGE)
             return
 
+        tokens = re.findall(r'([0-9]+) ([^0-9]+)', arg)
+        if tokens == []:
+            raise ArgumentParsingError('Argument should be of the form "NUM Token NUM Token"')
+
         output_string = ""
-        for i in range(0, len(args), 2):
+        for (count, token) in tokens:
             try:
-                count = int(args[i])
-                token = args[i+1]
+                count = int(count)
+                token = token.rstrip()
                 self.init_tracker.add_token(token, count)
                 output_string += f"Added {count} {token} tokens.\n"
-            except TypeError:
-                output_string += "I'm pretty sure '{}' isn't a number.\n".format(args[i])
-            except ValueError:
-                output_string += "I'm pretty sure '{}' isn't a number.\n".format(args[i])
-            except IndexError:
-                output_string += (
-                    "I think you forgot an input, there were an odd number of them.\n"
-                )
             except Exception as e:
                 print(e)
                 output_string += "What did you do? Something here caused an issue: {} {}\n".format(
@@ -107,6 +106,10 @@ class InitiativeCog(commands.Cog):
         await ctx.send(f"Starting round {self.init_tracker.round_num} of combat! Shuffling the bag...")
         await self.draw(ctx)
 
+    @commands.command(name="round", hidden=True)
+    async def roundAlias(self, ctx):
+        await self.round(ctx)
+        
     @init.command()
     async def draw(self, ctx):
         """Returns a token drawn in the current round"""
@@ -120,6 +123,10 @@ class InitiativeCog(commands.Cog):
                 await ctx.send(f"END OF ROUND {self.init_tracker.round_num}")
             else:
                 await ctx.send(f"Current Turn: **{token}**")
+
+    @commands.command(name="draw", hidden=True)
+    async def drawAlias(self, ctx):
+        await self.draw(ctx)
 
     @init.command(name="current")
     async def current_turn(self, ctx):

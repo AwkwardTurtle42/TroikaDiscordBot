@@ -19,6 +19,9 @@ async def test_init_cog_normal(mocker):
     await dpytest.message("!i add 4 Goblin 6 Ogre 2 Fighter")
     dpytest.verify_message("Added 4 Goblin tokens.\nAdded 6 Ogre tokens.\nAdded 2 Fighter tokens.\n")
 
+    await dpytest.message("!i add 2 Fred Wizard 2 Henchman")
+    dpytest.verify_message("Added 2 Fred Wizard tokens.\nAdded 2 Henchman tokens.\n")
+
     def fixed_shuffle(self):
         self.round_bag = ["Goblin", "Fighter", END_OF_ROUND_TOKEN]
 
